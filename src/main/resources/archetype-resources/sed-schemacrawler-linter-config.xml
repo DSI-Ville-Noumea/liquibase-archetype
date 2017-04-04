@@ -1,0 +1,226 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<schemacrawler-linter-configs>
+    <linter id="schemacrawler.tools.linter.LinterCatalogSql">
+        <run>false</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <config>
+          <property name="message">message for SQL catalog lint</property>
+          <property name="sql"><![CDATA[SELECT TOP 1 1 FROM INFORMATION_SCHEMA.TABLES]]></property>
+        </config>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterColumnTypes">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <!-- exclusions : -->
+        <!-- commentaire : certains commentaires sont en texte libre, d'autres (sur section_arrete) référencent la table commentaire -->
+        <!-- surface : certaines surfaces sont avec décimales (ex : sur LigneTca), d'autres sont entières (ex : entier sur adresse_referentiel) -->
+        <!-- statut : certains statuts correspondent à des enums java (ex : projet.statut), d'autres à des statuts dans des tables de référence : tiers.statut -> StatutTiers -->
+        <!-- date_statut : certaines dates sont de type date, d'autres de type timestamp plus précis (projet.dateStatut) -->
+        <column-exclusion-pattern><![CDATA[(${symbol_escape}w*${symbol_escape}.).*?.numero|.*?.commentaire|.*?.id_adresse|.*?.id|.*?.surface|.*?.statut|.*?.date_statut]]></column-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterForeignKeyMismatch">
+        <run>false</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterForeignKeyWithNoIndexes">
+        <run>false</run>
+        <severity>medium</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterNullColumnsInIndex">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterNullIntendedColumns">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterRedundantIndexes">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableAllNullableColumns">
+        <run>true</run>
+        <severity>high</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableCycles">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableEmpty">
+        <run>true</run>
+        <severity>high</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableSql">
+        <run>false</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <config>
+          <property name="message">message for custom SQL lint</property>
+          <property name="sql"><![CDATA[SELECT TOP 1 1 FROM ${symbol_dollar}{table}]]></property>
+        </config>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithBadlyNamedColumns">
+        <run>false</run><!-- a activer lorsqu'on aura une liste de noms -->
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithIncrementingColumns">
+        <run>true</run>
+        <!-- TODO : arriver à exclure : -->
+		<!--         projet.numero_permis1 / projet.numero_permis2 -->
+		<!--         projet.date_permis1   / projet.date_permis2 -->
+		<!--         tiers.nom / tiers.nom2 -->
+		<!--         tiers.prenom / tiers.prenom2 -->
+		<!--         tiers.civilite / tiers.civilite2 -->
+		<!--         usage.nombref1 / usage.nombref2 / usage.nombref3 / usage.nombref4  -->
+        <column-exclusion-pattern><![CDATA[(${symbol_escape}w*${symbol_escape}.)(projet.(numero_permis1|numero_permis2|date_permis1|date_permis2)|tiers.(nom|prenom|civilite)|usage.(nombref1|nombref2|nombref3|nombref4))]]></column-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithNoIndexes">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithNoPrimaryKey">
+        <run>true</run>
+        <severity>critical</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <threshold>1</threshold>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithPrimaryKeyNotFirst">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithNoRemarks">
+        <run>false</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithQuotedNames">
+        <run>true</run>
+        <severity>medium</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <column-exclusion-pattern><![CDATA[(((${symbol_escape}w*.){2})|(${symbol_escape}w*."${symbol_escape}w*".))(("version")|("index"))]]></column-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTableWithSingleColumn">
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterTooManyLobs">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="schemacrawler.tools.linter.LinterUselessSurrogateKey">
+        <run>true</run>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterTableNameNotInLowerCase">
+    	<run>true</run>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterTableWithNoPrimaryKey">
+    	<run>true</run>
+        <severity>high</severity>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterTableWithNoRemark">
+    	<run>false</run><!--Doublon avec schemacrawler.tools.linter.LinterTableWithNoRemarks -->
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterColumnContentNotNormalized">
+    	<run>true</run>
+        <severity>medium</severity>
+        
+        <!-- exclusion des tiers (nom/prenom/nom2/prenom2/tel_pro/tel_portable/tel_fixe/raison_sociale) -->
+        <!-- exclusion de centroide.numero : certains numéros se répètent naturellement (un centroïde est lié à un unique projet, les centroïdes ne sont pas partagés)-->
+        <!-- exclusion de parcelle.numero : les parcelles portent souvent des numéros courts: 1, 2, 3, A, etc. : les répétitions sont naturelles -->
+        <!-- exclusion des adresses : les valeurs se répètent naturellement (ex : 1 de la rue titi, le 1 de la rue toto, etc.) -->
+        <!-- exclusion de projet.libelle_nature_travaux / intitule / numero_permis1 / numero_permis2 / : répétitions métier normales -->
+        <!-- exclusion de historique.evenement : table importante avec des récurrences de certains textes (la table historique contient déjà un champ pour typer le type d'historique) -->
+        <!-- exclusion de pieceafournir.libelle : les pièces à fournir sont copiées du paramétrage des pièces à fournir, d'où la duplication des libellés. Cela garantit que les informations sont stables même si le paramétrage des pièces à fournir évolue -->
+        <!-- exclusion de piecemodificatif.libelle : même principe -->
+        <!-- exclusion de pieceafournir.justification : la justification est générée par l'application, elle dépend du paramétrage des conditions ; cette colonne est stable même si le paramétrage évolue -->
+        <!-- exclusion de pieceafournir.commentaire : les commentaires redondants saisis saisis en base sont ok -->
+        <!-- exclusion de piece_jointe.libelle : les libellés sont plutôt variables et saisis par l'utilisateur, un typage des pièces jointes aurait du sens (${symbol_pound}31059 créée) -->
+        <!-- exclusion de conformite.libelle et code : ces codes et libellés sont extrait depuis le template word (qui peut bouger) : ils sont stables indépendamment des évolutions du template word -->
+    	<!-- exclusion de config.valeur : il est normal de trouver des valeurs répétées : certains paramètres de configuration ont la même valeur -->
+    	<!-- exclusion de la table historique car table orientée "audit" métier -->
+    	<!-- exclusion de echange.contenu (saisie libre, variable) -->
+    	<!-- exclusion de arrete.observation (saisie libre, variable) -->
+    	<!-- exclusion de app_user.fonction : certaines fonctions sont identiques -->
+    	<!-- exclusion de app_user.email : le champ est volontairement not null pour avoir un maximum d'emails, mais quelques utilisateurs n'en ont pas => leur valeur est vide (meilleur valeur possible) -->
+    	<!-- exclusion de zone_pud.libelle_pourcent_espace_vert : certaines valeurs apparaissent naturellement plusieurs fois (c'est du paramétrage) -->
+    	<!-- exclusion de projet.servitude_pub_autre : ce champ autres servitudes publiques peuvent se répéter (actuellement 10 fois "météo+mili") -->
+    	<!-- exclusion de projet.app_version : version applicative 0 pour les projets pdcv0 et 3 papp pdc version>=3 -->
+    	<!-- exclusion de projet.numero_archivage : ce numéro peut se répéter entre différents projets -->
+    	<!-- exclusion de usage.complement_information : saisie libre variable avec quelques redondances, considérées normales -->
+    	<!-- exclusion de projet.info_type_projet : des valeurs sont répétées suite à la reprise v1, mais elles sont cependant utiles car il n'y a pas de champ strictement équivalent à partir de la v3 -->
+    	<!-- exclusion de consultation.commentaire : les contenus inutiles ont été nettoyés, les commentaires restant sont ok (cf. ce liquibase) -->
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.(databasechangeloglock|databasechangelog|adresses_consolidees|adresse_referentiel|adresse|section_arrete|historique)]]></table-exclusion-pattern>
+        <column-exclusion-pattern><![CDATA[(${symbol_escape}w*${symbol_escape}.)(consultation.commentaire|projet.info_type_projet|app_user.fonction|app_user.email|usage.complement_information|zone_pud.libelle_pourcent_espace_vert|parcelle.numero|arrete.observation|echange.contenu|config.valeur|conformite.(libelle|code)|projet.servitude_pub_autre|historique.evenement|pieceafournir.(libelle|justification|commentaire)|piece_modificatif.libelle|piece_jointe.libelle|tiers.(nom|prenom|nom2|prenom2|tel_pro|tel_portable|tel_fixe|raison_sociale)|centroide.numero|projet.app_version|projet.numero_archivage|projet.(libelle_nature_travaux|intitule|numero_permis1|numero_permis2))]]></column-exclusion-pattern>
+        <config>
+           <property name="nbRepeatTolerance">5</property>
+           <property name="minTextColumnSize">2</property>
+      </config>
+   </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterJsonTypeColumn">
+    	<run>true</run>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterJsonContent">
+    	<run>true</run>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterXmlContent">
+    	<run>true</run>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterBooleanContent">
+    	<run>true</run>
+        <severity>high</severity>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    	
+    	<!-- le délai de majoration en mois est un entier, qui peut d'ailleurs dépasser 1 -->
+    	<!-- le champ version est utilisé par Hibernate pour gérer les locks optimistes, c'est un entier -->
+        <column-exclusion-pattern><![CDATA[(${symbol_escape}w*${symbol_escape}.)(historique."version"|zone_pud."version"|modificatif.delai_majoration_mois)]]></column-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterPrimaryKeyNotIntegerLikeType">
+    	<run>true</run>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterBlobTypeColumn">
+    	<run>true</run>
+      <severity>critical</severity>
+    	<table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+      <threshold>1</threshold>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterColumnSize">
+        <run>true</run>
+        <severity>medium</severity>
+
+        <!-- les commentaires sur la table contentieux sont peu fréquents mais potentiellement longs -->
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog)|(contentieux))]]></table-exclusion-pattern>
+		
+		<!-- le champ "autre" dans le cas d'une servitude publique avec emplacement réservé=autre est de taille difficile à cerner (rarement saisi) -->
+		<column-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.projet.servitude_pub_emplacement_reserve_autre]]></column-exclusion-pattern>
+		
+        <config>
+            <property name="minColumnSizePercent">20</property>
+        </config>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterForeignKeyMismatchLazy">
+        <run>true</run>
+        <severity>critical</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog))]]></table-exclusion-pattern>
+        <threshold>1</threshold>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterForeignKeyName">
+        <run>false</run>
+        <severity>medium</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.[A-Z]*${symbol_escape}.((DATABASECHANGELOGLOCK)|(DATABASECHANGELOG)|(${symbol_escape}w*_aud)|(revinfo))]]></table-exclusion-pattern>
+        <threshold>1</threshold>
+    </linter>
+    <linter id="io.github.mbarre.schemacrawler.tool.linter.LinterByteaTypeColumn">
+        <run>true</run>
+        <severity>medium</severity>
+        <table-exclusion-pattern><![CDATA[${symbol_escape}w*${symbol_escape}.((databasechangeloglock)|(databasechangelog)|(${symbol_escape}w*_aud)|(revinfo))]]></table-exclusion-pattern>
+    </linter>
+</schemacrawler-linter-configs>

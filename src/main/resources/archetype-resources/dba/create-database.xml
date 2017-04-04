@@ -1,0 +1,147 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+ <!-- Parameters -->
+ <property name="password.app_adm" value="changeme"/>
+ <property name="password.app_usr" value="changeme"/>
+ <property name="password.app_read" value="changeme"/>
+ <property name="password.app_bo" value="changeme"/>
+ 
+ <property name="password.app_qrtz_adm" value="changeme"/>
+ <property name="password.app_qrtz_usr" value="changeme"/>
+ <property name="password.app_qrtz_read" value="changeme"/>
+    
+ <!-- Pre-conditions (DBA Access required) -->
+ <preConditions>
+        <dbms type="postgresql" />
+	<runningAs username="adminpg" />
+</preConditions>
+    
+
+<changeSet author="salad74" id="create-role-${appName}_adm" runInTransaction="false">
+    <sql>DROP OWNED BY ${appName}_adm CASCADE</sql>
+    <sql>drop ROLE IF EXISTS ${appName}_adm</sql>
+    <sql>CREATE ROLE ${appName}_adm  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_adm}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-role-${appName}_usr" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_usr</sql>
+    <sql>CREATE ROLE ${appName}_usr  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_usr}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-role-${appName}_read" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_read</sql>
+    <sql>CREATE ROLE ${appName}_read  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_read}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-role-${appName}_bo" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_bo</sql>
+    <sql>CREATE ROLE ${appName}_bo  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_bo}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-schema-${appName}_adm" runInTransaction="false">
+    <sql>DROP SCHEMA if exists ${appName}_adm</sql>
+    <sql>CREATE SCHEMA ${appName}_adm AUTHORIZATION ${appName}_adm</sql>
+    <sql>ALTER SCHEMA ${appName}_adm OWNER TO ${appName}_adm</sql>
+</changeSet>
+
+<changeSet author="salad74" id="update-search-path-${appName}_usr" runInTransaction="false">
+    <sql>ALTER USER ${appName}_usr  SET search_path TO '${appName}_adm'</sql>
+</changeSet>
+
+<changeSet author="salad74" id="update-search-path-${appName}_read" runInTransaction="false">
+    <sql>ALTER USER ${appName}_read  SET search_path TO '${appName}_adm'</sql>
+</changeSet>
+
+<changeSet author="salad74" id="update-search-path-${appName}_bo" runInTransaction="false">
+    <sql>ALTER USER ${appName}_bo  SET search_path TO '${appName}_adm'</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-all-on-${appName}_adm-to-${appName}_adm" runInTransaction="false">
+    <sql>GRANT ALL ON SCHEMA ${appName}_adm TO ${appName}_adm</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-usages-on-${appName}_adm" runInTransaction="false">
+    <sql>GRANT USAGE ON SCHEMA ${appName}_adm TO ${appName}_usr</sql>
+    <sql>GRANT USAGE ON SCHEMA ${appName}_adm TO ${appName}_read</sql>
+    <sql>GRANT USAGE ON SCHEMA ${appName}_adm TO ${appName}_bo</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-default-privileges" runInTransaction="false">
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO ${appName}_usr</sql>
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT,UPDATE ON SEQUENCES TO ${appName}_usr</sql>
+    
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT ON TABLES TO ${appName}_read</sql>
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT ON SEQUENCES TO ${appName}_read</sql>
+    
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT ON TABLES TO ${appName}_bo</sql>
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_adm IN SCHEMA ${appName}_adm GRANT SELECT ON SEQUENCES TO ${appName}_bo</sql>
+</changeSet>
+
+<changeSet author="salad74" id="${appName}_password_reminder" runInTransaction="false">
+<comment>Think about updating ${appName}_adm, ${appName}_usr and ${appName}_read passwords !!!</comment>
+</changeSet>
+
+ <!-- Création du schema ${appName}_qrtz_adm -->
+  <changeSet author="salad74" id="create-role-${appName}_qrtz_adm" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_qrtz_adm</sql>
+    <sql>CREATE ROLE ${appName}_qrtz_adm  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_qrtz_adm}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+
+<changeSet author="salad74" id="create-role-${appName}_qrtz_usr" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_qrtz_usr</sql>
+    <sql>CREATE ROLE ${appName}_qrtz_usr  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_qrtz_usr}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-role-${appName}_qrtz_read" runInTransaction="false">
+    <sql>drop ROLE IF EXISTS ${appName}_qrtz_read</sql>
+    <sql>CREATE ROLE ${appName}_qrtz_read  LOGIN ENCRYPTED PASSWORD '${symbol_dollar}{password.app_qrtz_read}' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION</sql>
+</changeSet>
+
+<changeSet author="salad74" id="create-schema-${appName}_qrtz_adm" runInTransaction="false">
+    <sql>DROP SCHEMA if exists ${appName}_qrtz_adm</sql>
+    <sql>CREATE SCHEMA ${appName}_qrtz_adm AUTHORIZATION ${appName}_qrtz_adm</sql>
+    <sql>ALTER SCHEMA ${appName}_qrtz_adm OWNER TO ${appName}_qrtz_adm</sql>
+</changeSet>
+ 
+<changeSet author="salad74" id="update-search-path-${appName}_qrtz_usr" runInTransaction="false">
+    <sql>ALTER USER ${appName}_qrtz_usr  SET search_path TO '${appName}_qrtz_adm'</sql>
+</changeSet>
+
+<changeSet author="salad74" id="update-search-path-${appName}_qrtz_read" runInTransaction="false">
+    <sql>ALTER USER ${appName}_qrtz_read  SET search_path TO '${appName}_qrtz_adm'</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-all-on-${appName}_qrtz_adm-to-${appName}_qrtz_adm" runInTransaction="false">
+    <sql>GRANT ALL ON SCHEMA ${appName}_qrtz_adm TO ${appName}_qrtz_adm</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-usages-on-${appName}_qrtz_adm" runInTransaction="false">
+    <sql>GRANT USAGE ON SCHEMA ${appName}_qrtz_adm TO ${appName}_qrtz_usr</sql>
+    <sql>GRANT USAGE ON SCHEMA ${appName}_qrtz_adm TO ${appName}_qrtz_read</sql>
+</changeSet>
+
+<changeSet author="salad74" id="grant-default-privileges_${appName}_qrtz" runInTransaction="false">
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_qrtz_adm IN SCHEMA ${appName}_qrtz_adm GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO ${appName}_qrtz_usr</sql>
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_qrtz_adm IN SCHEMA ${appName}_qrtz_adm GRANT SELECT,UPDATE ON SEQUENCES TO ${appName}_qrtz_usr</sql>
+    
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_qrtz_adm IN SCHEMA ${appName}_adm GRANT SELECT ON TABLES TO ${appName}_qrtz_read</sql>
+    <sql>ALTER DEFAULT PRIVILEGES FOR ROLE ${appName}_qrtz_adm IN SCHEMA ${appName}_adm GRANT SELECT ON SEQUENCES TO ${appName}_qrtz_read</sql>
+</changeSet>
+
+
+ <!-- Grant usage on qartz table ${appName}_usr -->
+ <changeSet author="salad74" id="grant-usages-on-${appName}_qrtz_adm-to-${appName}_usr" runInTransaction="false">
+    <sql>ALTER USER ${appName}_usr SET search_path TO ${appName}_adm,${appName}_qrtz_adm</sql>
+    <sql>grant USAGE on SCHEMA ${appName}_qrtz_adm to ${appName}_usr</sql>
+    <sql>GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ${appName}_qrtz_adm TO ${appName}_usr</sql>
+    <sql>GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA ${appName}_qrtz_adm TO ${appName}_usr</sql>
+</changeSet>
+
+</databaseChangeLog>

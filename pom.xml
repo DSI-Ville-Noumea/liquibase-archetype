@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>nc.noumea.mairie</groupId>
+  <artifactId>liquibase-archetype</artifactId>
+  <version>1.00.00</version>
+  <packaging>maven-archetype</packaging>
+
+  <name>liquibase-archetype</name>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.archetype</groupId>
+        <artifactId>archetype-packaging</artifactId>
+        <version>2.4</version>
+      </extension>
+    </extensions>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-archetype-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <developers>
+    <developer>
+      <id>barmi83</id>
+      <name>Michèle BARRE</name>
+      <email>michele.barre@ville-noumea.nc</email>
+      <organization>Mairie de Nouméa</organization>
+      <organizationUrl>http://www.noumea.nc/</organizationUrl>
+      <roles>
+        <role>Développeur</role>
+      </roles>
+      <timezone>+11</timezone>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License (GPL) v3</name>
+      <url>http://www.gnu.org/copyleft/gpl.html</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>https://github.com/DSI-Ville-Noumea/liquibase-archetype.git</connection>
+    <developerConnection>https://github.com/DSI-Ville-Noumea/liquibase-archetype.git</developerConnection>
+    <url>https://github.com/DSI-Ville-Noumea/liquibase-archetype.git</url>
+  </scm>
+</project>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) v3</name>
+            <url>http://www.gnu.org/copyleft/gpl.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <email>Adrien.Sales@ville-noumea.nc</email>
+            <id>salad74</id>
+            <name>Adrien Sales</name>
+            <organization>Mairie de Nouméa</organization>
+            <organizationUrl>http://www.noumea.nc/</organizationUrl>
+            <roles>
+                <role>Architecte logiciel</role>
+                <role>Intégrateur</role>
+                <role>DBA</role>
+            </roles>
+            <timezone>+11</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/DSI-Ville-Noumea/pdc-liquibase.git</connection>
+        <developerConnection>https://github.com/DSI-Ville-Noumea/pdc-liquibase.git</developerConnection>
+        <url>https://github.com/DSI-Ville-Noumea/pdc.git</url>
+    </scm>
+
+    <organization>
+        <name>Mairie de Nouméa, Nouvelle-Calédonie</name>
+        <url>http://www.noumea.nc/</url>
+    </organization>
+
+
+    <contributors>
+        <!-- DSI Ville de Nouméa -->
+        <contributor>
+            <email>Adrien.Sales@ville-noumea.nc</email>
+            <name>Sales</name>
+            <organization>Mairie de Nouméa</organization>
+            <organizationUrl>http://www.noumea.nc</organizationUrl>
+            <roles>
+                <role>Intégrateur</role>
+                <role>DBA</role>
+                <role>Développeur Liquibase</role>
+                <role>Responsable du Département Maintenance et Développement</role>
+                <role>Scrum Master</role>
+            </roles>
+            <timezone>+11</timezone>
+        </contributor>
+    </contributors>
+
+    <prerequisites>
+        <maven>3.3.9</maven>
+    </prerequisites>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>schemacrawler</executable>
+                    <workingDirectory>.</workingDirectory>
+                    <arguments>
+                        <argument>-c=lint -lintdispatch=terminate_system -server=postgresql -host=localhost -port=5432
+                            -url=jdbc:postgresql:${appName} -database=${appName}  -user=postgres -schemas=public -outputformat=html
+                            -outputfile=${appName} _lints.html</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

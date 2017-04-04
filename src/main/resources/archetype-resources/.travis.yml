@@ -1,0 +1,40 @@
+sudo: required
+language: java
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+jdk:
+- oraclejdk8
+services: postgresql
+addons:
+  postgresql: 9.4
+before_install:
+- env
+- export postgresql_version=42.0.0
+- export liquibase_version=3.5.1
+- export schemacrawler_version=14.14.04
+- export JAVA_OPTS="-Xmx2560m -XX:-UseGCOverheadLimit"
+- echo $JAVA_OPTS
+- echo "downloading and installing liquibase ${liquibase_version}"
+- wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${liquibase_version}/liquibase-${liquibase_version}-bin.tar.gz -P /tmp
+- sudo mkdir /opt/liquibase-${liquibase_version}
+- sudo tar zxvf /tmp/liquibase-${liquibase_version}-bin.tar.gz -C /opt/liquibase-${liquibase_version}
+- sudo ln -s /opt/liquibase-${liquibase_version} /opt/liquibase
+- export PATH=$PATH:/opt/liquibase-${liquibase_version}
+- liquibase --version
+- echo "downloading and installing postgres ${postgresql_version} driver."
+- wget http://central.maven.org/maven2/org/postgresql/postgresql/${postgresql_version}/postgresql-${postgresql_version}.jar
+- sudo cp postgresql-${postgresql_version}.jar /opt/liquibase-${liquibase_version}/lib/
+- echo "downloading and installing SchemaCrawler"
+- wget https://github.com/adriens/schemacrawler-deb/releases/download/${schemacrawler_version}/schemacrawler-deb_${schemacrawler_version}_all.deb
+- sudo dpkg -i schemacrawler-deb_${schemacrawler_version}_all.deb
+- sudo mv /opt/schemacrawler-${schemacrawler_version}/additional-lints/schemacrawler-additional-lints-*.jar /opt/schemacrawler-${schemacrawler_version}/lib
+- echo "deploying ${appName}  database."
+- dropdb --if-exists ${appName}
+- psql -c 'create database ${appName} ;' -U postgres
+- cd ${appName}
+- liquibase --driver=org.postgresql.Driver --username=postgres --url=jdbc:postgresql:${appName}  --defaultSchemaName=public --changeLogFile=db.changelog.xml --logLevel=debug update
+- cd ..
+install:
+- mvn exec:exec
