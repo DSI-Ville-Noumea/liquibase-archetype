@@ -38,4 +38,5 @@ before_install:
 install:
 - mvn exec:exec
 notifications:
-  slack: dsi-mairie-noumea:#### A SAISIR ####
+  slack:
+    secure: ## A SAISIR ##
