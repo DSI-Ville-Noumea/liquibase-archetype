@@ -13,6 +13,15 @@
     <requiredProperty key="version">
       <defaultValue>1.00.00-SNAPSHOT</defaultValue>
     </requiredProperty>
+    <requiredProperty key="liquibaseVersion">
+      <defaultValue>3.5.3</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="schemacrawlerVersion">
+      <defaultValue>14.15.03</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="postgresDriverVersion">
+      <defaultValue>42.0.0</defaultValue>
+    </requiredProperty>
   </requiredProperties>
 
   <fileSets>

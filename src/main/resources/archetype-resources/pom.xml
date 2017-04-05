@@ -31,9 +31,9 @@
     </developers>
 
     <scm>
-        <connection>https://github.com/DSI-Ville-Noumea/pdc-liquibase.git</connection>
-        <developerConnection>https://github.com/DSI-Ville-Noumea/pdc-liquibase.git</developerConnection>
-        <url>https://github.com/DSI-Ville-Noumea/pdc.git</url>
+        <connection>https://github.com/DSI-Ville-Noumea/${appName}-liquibase.git</connection>
+        <developerConnection>https://github.com/DSI-Ville-Noumea/${appName}-liquibase.git</developerConnection>
+        <url>https://github.com/DSI-Ville-Noumea/${appName}.git</url>
     </scm>
 
     <organization>
@@ -83,7 +83,7 @@
                     <arguments>
                         <argument>-c=lint -lintdispatch=terminate_system -server=postgresql -host=localhost -port=5432
                             -url=jdbc:postgresql:${appName} -database=${appName}  -user=postgres -schemas=public -outputformat=html
-                            -outputfile=${appName} _lints.html</argument>
+                            -outputfile=${appName}_lints.html</argument>
                     </arguments>
                 </configuration>
             </plugin>

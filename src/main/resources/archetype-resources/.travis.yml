@@ -11,15 +11,14 @@ addons:
   postgresql: 9.4
 before_install:
 - env
-- export postgresql_version=42.0.0
-- export liquibase_version=3.5.1
-- export schemacrawler_version=14.14.04
+- export postgresql_version=${postgresDriverVersion}
+- export liquibase_version=${liquibaseVersion}
+- export schemacrawler_version=${schemacrawlerVersion}
 - export JAVA_OPTS="-Xmx2560m -XX:-UseGCOverheadLimit"
 - echo $JAVA_OPTS
 - echo "downloading and installing liquibase ${liquibase_version}"
-- wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${liquibase_version}/liquibase-${liquibase_version}-bin.tar.gz -P /tmp
-- sudo mkdir /opt/liquibase-${liquibase_version}
-- sudo tar zxvf /tmp/liquibase-${liquibase_version}-bin.tar.gz -C /opt/liquibase-${liquibase_version}
+- wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${liquibaseVersion}/liquibase-debian_${liquibaseVersion}_all.deb
+- sudo dpkg -i liquibase-debian_${liquibaseVersion}_all.deb
 - sudo ln -s /opt/liquibase-${liquibase_version} /opt/liquibase
 - export PATH=$PATH:/opt/liquibase-${liquibase_version}
 - liquibase --version
