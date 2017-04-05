@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<properties xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
+
+    <name>The ${appName}-liquibase Project</name>
+    <description>The liquibase for ${appName} project</description>
+    <url>https://github.com/DSI-Ville-Noumea/${appName}-liquibase</url>
 
     <inceptionYear>2017</inceptionYear>
 
@@ -60,16 +64,23 @@
         </contributor>
     </contributors>
 
+    <properties>
+        <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
+        <maven.version>3.3.9</maven.version>
+    </properties>
+
     <prerequisites>
-        <maven>3.3.9</maven>
+        <maven>${maven.version}</maven>
     </prerequisites>
+
+
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.5.0</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

@@ -37,3 +37,5 @@ before_install:
 - cd ..
 install:
 - mvn exec:exec
+notifications:
+  slack: dsi-mairie-noumea:#### A SAISIR ####

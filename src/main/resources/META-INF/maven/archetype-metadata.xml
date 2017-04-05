@@ -22,6 +22,9 @@
     <requiredProperty key="postgresDriverVersion">
       <defaultValue>42.0.0</defaultValue>
     </requiredProperty>
+    <requiredProperty key="adminpgPassword">
+      <defaultValue></defaultValue>
+    </requiredProperty>
   </requiredProperties>
 
   <fileSets>

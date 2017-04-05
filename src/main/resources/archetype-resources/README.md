@@ -1,4 +1,4 @@
-# ${appName} -liquibase
+# ${appName}-liquibase
 
 Repo dédiée aux scripts Liquibase de l'application  (https://github.com/DSI-Ville-Noumea/${appName} ).
 
