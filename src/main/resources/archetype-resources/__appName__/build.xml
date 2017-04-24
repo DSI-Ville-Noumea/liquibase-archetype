@@ -62,6 +62,7 @@
 	<replace file="${liquibase.properties}" token="$defaultSchemaName" value="${defaultSchemaName}"/>
         <replace file="${liquibase.properties}" token="$logLevel" value="${logLevel}"/>
         <replace file="${liquibase.properties}" token="$logFile" value="${logFile}"/>
+        <replace file="${liquibase.properties}" token="$contexts" value="${contexts}"/>
 	<echo>Fichiers de conf prêts pour les opérations liquibase.</echo>
 </target>
 
