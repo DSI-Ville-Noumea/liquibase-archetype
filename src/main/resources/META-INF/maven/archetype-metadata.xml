@@ -34,6 +34,7 @@
         <include>sed-schemacrawler-linter-config.xml</include>
         <include>schemacrawler.config.properties</include>
         <include>schemacrawler-diagram.config.properties</include>
+        <include>**/*.template</include>
         <include>**/*.xml</include>
         <include>**/*.properties</include>
         <include>.travis.yml</include>
