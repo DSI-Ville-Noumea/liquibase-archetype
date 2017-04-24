@@ -6,4 +6,4 @@ changeLogFile=$changeLogFile
 defaultSchemaName=$defaultSchemaName
 logLevel=$logLevel
 logFile=$logFile
-contexts=
+contexts=$contexts
