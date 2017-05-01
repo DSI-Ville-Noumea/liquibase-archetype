@@ -1,3 +1,5 @@
 .idea
 target
 liquibase-archetype.iml
+*.project
+.settings/
