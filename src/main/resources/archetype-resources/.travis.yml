@@ -17,10 +17,10 @@ before_install:
 - export JAVA_OPTS="-Xmx2560m -XX:-UseGCOverheadLimit"
 - echo $JAVA_OPTS
 - echo "downloading and installing liquibase ${liquibase_version}"
-- wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${liquibaseVersion}/liquibase-debian_${liquibaseVersion}_all.deb
-- sudo dpkg -i liquibase-debian_${liquibaseVersion}_all.deb
-- sudo ln -s /opt/liquibase-${liquibase_version} /opt/liquibase
-- export PATH=$PATH:/opt/liquibase-${liquibase_version}
+- wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${liquibaseVersion}/liquibase-debian_${liquibase_version}_all.deb
+- sudo dpkg -i liquibase-debian_${liquibase_version}_all.deb
+- sudo ln -s /usr/lib/liquibase-${liquibase_version} /opt/liquibase
+- export PATH=$PATH:/opt/liquibase
 - liquibase --version
 - echo "downloading and installing postgres ${postgresql_version} driver."
 - wget http://central.maven.org/maven2/org/postgresql/postgresql/${postgresql_version}/postgresql-${postgresql_version}.jar
