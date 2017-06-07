@@ -7,6 +7,9 @@
       <defaultValue>nc.noumea.mairie</defaultValue>
     </requiredProperty>
     <requiredProperty key="appName"/>
+    <requiredProperty key="travisUserToken">
+      <defaultValue>A_SAISIR</defaultValue>
+    </requiredProperty>
     <requiredProperty key="artifactId">
       <defaultValue>${appName}-liquibase</defaultValue>
     </requiredProperty>

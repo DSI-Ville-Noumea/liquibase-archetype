@@ -1,5 +1,7 @@
 # ${appName}-liquibase
 
+[![Build Status](https://travis-ci.com/DSI-Ville-Noumea/${appName}-liquibase.svg?token=${travisUserToken}&branch=master)](https://travis-ci.com/DSI-Ville-Noumea/${appName}-liquibase)
+
 Repo dédiée aux scripts Liquibase de l'application  (https://github.com/DSI-Ville-Noumea/${appName} ).
 
 ## Génération de lints et diagrammes (Schemacrawler)

@@ -4,7 +4,7 @@
 
   <groupId>nc.noumea.mairie</groupId>
   <artifactId>liquibase-archetype</artifactId>
-  <version>2.00.00</version>
+  <version>3.00.00</version>
   <packaging>maven-archetype</packaging>
 
   <name>liquibase-archetype</name>
