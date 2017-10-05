@@ -14,7 +14,7 @@ Archetype maven pour projet liquibase
 
 ```
 >> cd ..
->> mvn archetype:generate -DarchetypeArtifactId=liquibase-archetype -DarchetypeGroupId=nc.noumea.mairie -DarchetypeVersion=3.00.00 -DappName=myApp
+>> mvn archetype:generate -DarchetypeArtifactId=liquibase-archetype -DarchetypeGroupId=nc.noumea.mairie -DarchetypeVersion=3.00.00 -DappName=myApp -DarchetypeCatalog=local
 ```
 
 
