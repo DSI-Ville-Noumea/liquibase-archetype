@@ -2,8 +2,8 @@ sudo: required
 language: java
 cache:
   directories:
-  - .autoconf
-  - $HOME/.m2
+  - ".autoconf"
+  - "$HOME/.m2"
 jdk:
 - oraclejdk8
 services: postgresql
@@ -24,7 +24,7 @@ before_install:
 - liquibase --version
 - echo "downloading and installing postgres ${postgresql_version} driver."
 - wget http://central.maven.org/maven2/org/postgresql/postgresql/${postgresql_version}/postgresql-${postgresql_version}.jar
-- sudo cp postgresql-${postgresql_version}.jar /opt/liquibase-${liquibase_version}/lib/
+- sudo cp postgresql-${postgresql_version}.jar /opt/liquibase/lib/
 - echo "downloading and installing SchemaCrawler"
 - wget https://github.com/adriens/schemacrawler-deb/releases/download/${schemacrawler_version}/schemacrawler-deb_${schemacrawler_version}_all.deb
 - sudo dpkg -i schemacrawler-deb_${schemacrawler_version}_all.deb
