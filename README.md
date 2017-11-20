@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype.svg?branch=master)](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype) 
+
 # liquibase-archetype
 
 Archetype maven pour projet liquibase
