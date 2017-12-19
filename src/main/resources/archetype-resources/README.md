@@ -12,3 +12,5 @@ Repo dédiée aux scripts Liquibase de l'application  (https://github.com/DSI-Vi
 	# Génération des diagrammes
 	schemacrawler -g=schemacrawler-diagram.config.properties
 
+NB : penser à encrypter la clé avec botDSI : travis sshkey --generate -r DSI-Ville-Noumea/${appName} --debug --pro
+
