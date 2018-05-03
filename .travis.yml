@@ -1,0 +1,15 @@
+sudo: required
+language: java
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+jdk:
+- oraclejdk8
+services: postgresql
+addons:
+  postgresql: 9.4
+notifications:
+  slack:
+    secure: X6r7K2ZYiH743A7cQioqo2G5Q39gxj/sGK8NgrgAUOnXogfGa+dpscXsQguDoD18Aq2hQ8uZN96W5HxCJmJH4otpcIt2JRbkdm3DkCCA/fqEq/+sZDPparProz+5jxZGV1XCw81sKjt92Raff/w416B+VI8n1wFUhVb8jBZt5X/MzmL/qrqvrOlMW9j3Nr8VTZUYK3EehKLo0SjMPYYurk++zAKK5y3qgDTSQW03JLHn7Q/DSIMO5FzmCHjIUhkE7j7TUdGTFqW7HCtGdDnrAVSb0ETeOmlD4DqhsIxI5lBgvo2J8r/1Eaz2A/VSessHgvDSJErQbXJsPVEPsOmGkGXTUilX2uhlwBxgfB74xmQr/ycCEWUontXAs3qY3eFOC1/yKlfntNbmnF2+/rqLA9qvAfOPS9mkcdK+xACaEJV88qhb+miVj94GraBdps4fIS3pkqi3wSdP0eldJ1AxMZEARIV+//nEGJekoRQM3en8M7Gz/OCD+YMZ1kHA0EDSwSa/NPFTr3sXTxHP10maO0gWTAckjKY5RGwZFD9M9JUFzjuMuAn37BjmmgNdyjDPJbQk1yMDFmXSEAUwKE0roTKQ9x/cBAeNrpNDk1vt/1MrHIIHoAlNXLJFjvJVs0tyemt9HGw8yRTyQLqCkVSwKLQME25Y6jGOTIHWEFKIc0g=
+

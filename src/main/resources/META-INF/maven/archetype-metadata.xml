@@ -20,7 +20,7 @@
       <defaultValue>3.5.3</defaultValue>
     </requiredProperty>
     <requiredProperty key="schemacrawlerVersion">
-      <defaultValue>14.15.03</defaultValue>
+      <defaultValue>14.15.04</defaultValue>
     </requiredProperty>
     <requiredProperty key="postgresDriverVersion">
       <defaultValue>42.0.0</defaultValue>

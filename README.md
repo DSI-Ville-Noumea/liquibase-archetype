@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype.svg?branch=master)](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype) 
+
 # liquibase-archetype
 
 Archetype maven pour projet liquibase
@@ -14,7 +16,7 @@ Archetype maven pour projet liquibase
 
 ```
 >> cd ..
->> mvn archetype:generate -DarchetypeArtifactId=liquibase-archetype -DarchetypeGroupId=nc.noumea.mairie -DarchetypeVersion=1.00.00 -DappName=myApp
+>> mvn archetype:generate -DarchetypeArtifactId=liquibase-archetype -DarchetypeGroupId=nc.noumea.mairie -DarchetypeVersion=3.00.00 -DappName=myApp -DarchetypeCatalog=local
 ```
 
 
