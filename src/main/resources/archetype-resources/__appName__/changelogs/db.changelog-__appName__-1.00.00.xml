@@ -6,7 +6,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
+	<preConditions>
+		<dbms type="postgresql" />
+		<runningAs username="${appName}_adm" />
+	</preConditions>
 
+	<changeSet author="barmi83" id="1493261912597-1">
+		<createSequence sequenceName="s_utilisateur" incrementBy="1" maxValue="9999999" minValue="1" startValue="1"/>
+
+		<createTable tableName="utilisateur" remarks="Table des utilisateurs de l'application">
+			<column name="id" type="bigint" defaultValueComputed="nextval('s_utilisateur')" remarks="Id technique">
+				<constraints nullable="false"/>
+			</column>
+			<column name="nom" type="varchar(50)" remarks="Nom de l'utilisateur">
+				<constraints nullable="false"/>
+			</column>
+			<column name="prenom" type="varchar(50)" remarks="Prénom de l'utilisateur">
+				<constraints nullable="false"/>
+			</column>
+			<column name="identifiant" type="varchar(7)" remarks="Identifiant/login de l'utilisateur">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addPrimaryKey columnNames="id" constraintName="pk_utilisateur" tableName="utilisateur"/>
+		<addUniqueConstraint columnNames="identifiant" constraintName="utilisateur_unique_identifiant" tableName="utilisateur"/>
+
+		<sql>insert into utilisateur(nom, prenom, identifiant) values ('BARRE', 'Michele', 'barmi83')</sql>
+	</changeSet>
 
 	<!-- TAG, SANS CONTEXTE VOLONTAIREMENT -->
 	<changeSet author="" id="tag_1.00.00">
