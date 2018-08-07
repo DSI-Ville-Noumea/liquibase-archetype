@@ -1,3 +1,5 @@
+Le projet a été archivé car ce type de projet ne sera plus exploité : départ sur Spring Boot - ZK - Liquibase
+
 [![Build Status](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype.svg?branch=master)](https://travis-ci.org/DSI-Ville-Noumea/liquibase-archetype) 
 
 # liquibase-archetype
